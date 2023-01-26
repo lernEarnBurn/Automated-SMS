@@ -1,0 +1,5 @@
+google-api-python-client
+google_auth_oauthlib
+twilio
+dotenv
+os
