@@ -2,9 +2,8 @@ import modules.googleSheets as gs
 
 import modules.vonageSMS as vonage
 
-
 from PyQt6 import QtWidgets, uic
-from PyQt6.QtCore import QFile
+
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -16,6 +15,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.message = self.findChild(QtWidgets.QTextEdit, "Message")
 
         self.firstRow = self.findChild(QtWidgets.QSpinBox, "firstRow")
+        
 
         self.lastRow = self.findChild(QtWidgets.QSpinBox, "lastRow")
 
@@ -28,8 +28,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
     
     def runBlaster(self):
-        #need to make sure not empty and input is an int
-        #spaces also interfere with it
         data = gs.readSpreadsheet(str(self.firstRow.value()), str(self.lastRow.value()))
        
 
@@ -45,12 +43,8 @@ class MainWindow(QtWidgets.QMainWindow):
 app = QtWidgets.QApplication([])
 window = MainWindow()
 
-file = QFile("style.qss")
-
 stylesheet = """
-QPushButton:hover {background-color: red;}
-
-QTextEdit {border-radius: 50%;}
+QTextEdit {border-radius: 40px; border: 2px red;}
 
 QLabel {color:#F9F9F9;}
 
