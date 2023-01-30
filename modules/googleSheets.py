@@ -21,7 +21,7 @@ def fetchData(firstRow, lastRow):
 
     sheet = service.spreadsheets()
     result = sheet.values().get(spreadsheetId=SPREADSHEET_ID,
-                                range="sheet1!A" + firstRow + ":E" + lastRow).execute()
+                                range="sheet1!A" + firstRow + ":N" + lastRow).execute()
 
     values = result.get('values', [])
 
@@ -29,12 +29,36 @@ def fetchData(firstRow, lastRow):
 
 
 def firstNameFormat(name):
-        return
+    return name[0] + name[1:].lower()
 
 
 def roundValue(num):
-        return
-        #round to nearest 10,000 then cut in half
+    num = float(num.replace(',', ''))
+    if num % 5000 == 0:
+        num = "{:.2f}".format(num)
+        return  "$" + addCommas(num)
+    else:
+        num = ((round(num / 10000) * 10000) / 2)
+        num = "{:.2f}".format(num)
+        return "$" + addCommas(num)
+    
+
+def addCommas(num):
+    num = str(num)
+    parts = num.split(".")
+    integer_part = parts[0]
+    length = len(integer_part)
+    result = ""
+    for i in range(length):
+        if (i + 1) % 3 == 0 and i != length - 1:
+            result = "," + integer_part[length - i - 1] + result
+        else:
+            result = integer_part[length - i - 1] + result
+    if len(parts) > 1:
+        result += "." + parts[1]
+    return result
+
+    
 
 def getBusinessName():
         return
@@ -48,32 +72,4 @@ def equityNumber():
 
 
 
-#database features, gonna move ti a new file
-def databaseSheet():
-        SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
-        SERVICE_ACCOUNT_FILE = './joshCreds.json'
 
-        credentials = None
-        credentials = service_account.Credentials.from_service_account_file(
-                SERVICE_ACCOUNT_FILE, scopes=SCOPES)
-
-        service = build('sheets', 'v4', credentials=credentials)
-        sheet = service.spreadsheets()
-        return sheet
-
-
-def readDatabase():
-        SPREADSHEET_ID = os.getenv('databaseSpreadsheetId')
-        result = databaseSheet().values().get(spreadsheetId=SPREADSHEET_ID,
-                       range="sheet1!A1:C1").execute()
-
-        values = result.get('values', [])
-        return values[0]
-        
-
-
-def writeToDatabase(updatedMessage, updatedFirst, updatedLast):
-        SPREADSHEET_ID = os.getenv('databaseSpreadsheetId')
-        updatedData = [[updatedMessage, updatedFirst, updatedLast]]
-
-        request = databaseSheet().values().update(spreadsheetId=SPREADSHEET_ID, range="sheet1!A1:C1", valueInputOption="USER_ENTERED", body={"values": updatedData}).execute()
