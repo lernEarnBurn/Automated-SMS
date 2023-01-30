@@ -1,5 +1,5 @@
 google-api-python-client
 google_auth_oauthlib
-twilio
+vonage
 dotenv
 os
