@@ -58,17 +58,30 @@ def addCommas(num):
         result += "." + parts[1]
     return result
 
-    
 
-def getBusinessName():
-        return
-        #if business name has a / only use whats on the right of /
+def getBusinessName(businessName):
+    for i in range(len(businessName)):
+        if businessName[i] == '/':
+            return businessName[i + 2:]
+            #make sure it gets properly capped for each word
+            #also cut out inc llc llp or corp
+    return businessName
 
-def equityNumber():
-        return
-        #if first cells number has a space after it then whichever
-        #out of the next one that is over 50 gets it unless theyure both 50
+def whichColumn(value):
+    if value[0] == '(':
+        return 7
+    else:
+        return 8
 
+
+def equityNumber(value): #data[i][1]
+    if value[3] == ' ':
+        if int(value[:3]) >= 50:
+            print('majority owner')
+            print('skip next')
+        else:
+            print('skip this')
+        
 
 
 

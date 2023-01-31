@@ -38,16 +38,20 @@ class MainWindow(QtWidgets.QMainWindow):
         database.writeToDatabase(self.message.toPlainText(), str(self.firstRow.value()), str(self.lastRow.value()))
 
         data = gs.fetchData(str(self.firstRow.value()), str(self.lastRow.value()))
-        print(data)
-
+      
+        
         '''possibility one: [1] = equity check  [2] = company name  [3] = first name   [8] = phone num   [13] = approval amount
                                                                                     if [8] != phone num { [9] = phone num }'''
 
         for i in range(len(data)):
             #just cause of alternating lines of mock leads
             if i % 2 == 0:
-                vonage.mockSend(self.message.toPlainText(), data[i][4])
-                self.console.append(f"sent {self.message.toPlainText()} to {data[i][4]}")
+                #if colorcheck():
+                    #need to connect these mockSend values to the message stored in self.message
+                    self.console.append(
+                        vonage.mockSend(
+                            gs.firstNameFormat(data[i][3]), gs.getBusinessName(data[i][2]), data[i][gs.whichColumn(data[i][6])], gs.roundValue(data[i][13])
+                        ))
 
 
 #look into if name = main business
