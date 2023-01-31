@@ -1,5 +1,4 @@
-def mockSend(firstName, businessName, phoneNumber, approvalAmount):
-   message = f"hello {firstName} your business {businessName} has been approved {approvalAmount}"
+def mockSend(message, phoneNumber):
    return 'sent ' + message + ' to ' + phoneNumber
 
 
