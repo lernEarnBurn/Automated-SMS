@@ -13,6 +13,11 @@
   <property name="windowTitle">
    <string>Text Blaster</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>icon.png</normaloff>
+    <normalon>icon.png</normalon>icon.png</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTextBrowser" name="console">
     <property name="geometry">
