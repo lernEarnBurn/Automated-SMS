@@ -62,10 +62,20 @@ def addCommas(num):
 def getBusinessName(businessName):
     for i in range(len(businessName)):
         if businessName[i] == '/':
-            return businessName[i + 2:]
+            return capitalize_words(businessName[i + 2:])
             #make sure it gets properly capped for each word
             #also cut out inc llc llp or corp
-    return businessName
+    return capitalize_words(businessName)
+
+def capitalize_words(text):
+    words = text.split()
+    if len(words) == 0:
+        return ""
+    last_word = words[-1].lower()
+    if last_word in {"llc", "llp", "inc", "corp"}:
+        words = words[:-1]
+    capitalized_words = [word.capitalize() for word in words]
+    return " ".join(capitalized_words)
 
 def whichColumn(value):
     if value[0] == '(':
@@ -73,7 +83,7 @@ def whichColumn(value):
     else:
         return 8
 
-
+#implement this at the end once you map out how everything else is gonna work
 def equityNumber(value): #data[i][1]
     if value[3] == ' ':
         if int(value[:3]) >= 50:
