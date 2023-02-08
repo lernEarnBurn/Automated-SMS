@@ -1,6 +1,5 @@
 import modules.googleSheets as gs
 
-import modules.vonageSMS as vonage
 
 import modules.database as database
 
@@ -42,8 +41,6 @@ class MainWindow(QtWidgets.QMainWindow):
         data = gs.fetchData(str(self.firstRow.value()), str(self.lastRow.value()))
       
         
-        '''possibility one: [1] = equity check  [2] = company name  [3] = first name   [8] = phone num   [13] = approval amount
-                                                                                    if [8] != phone num { [9] = phone num }'''
         message = self.message.toPlainText()
         print(message)
         for i in range(len(data)):
