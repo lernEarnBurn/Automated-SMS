@@ -4,3 +4,4 @@ dotenv
 os
 selenium
 webdriver-manager 
+chrome browser
