@@ -28,11 +28,11 @@ def fetchData(firstRow, lastRow):
     return values
 
 
-def firstNameFormat(name):
+def formatFirstName(name):
     return name[0] + name[1:].lower()
 
 
-def roundValue(num):
+def roundApproval(num):
     num = float(num.replace(',', ''))
     if num % 5000 == 0:
         num = "{:.2f}".format(num)
@@ -59,7 +59,7 @@ def addCommas(num):
     return result
 
 
-def getBusinessName(businessName):
+def formatBusinessName(businessName):
     for i in range(len(businessName)):
         if businessName[i] == '/':
             return capitalize_words(businessName[i + 2:])
@@ -93,6 +93,7 @@ def equityNumber(value): #data[i][1]
             print('skip this')
         
 
-
+def formatNumber(number):
+    return ''.join(filter(str.isdigit, number))
 
 

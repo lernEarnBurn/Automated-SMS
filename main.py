@@ -1,7 +1,8 @@
 import modules.googleSheets as gs
 
-
 import modules.database as database
+
+import modules.bot as bot
 
 from PyQt6 import QtWidgets, uic
 
@@ -43,12 +44,14 @@ class MainWindow(QtWidgets.QMainWindow):
         
         message = self.message.toPlainText()
         print(message)
+
+       
         for i in range(len(data)):
-            #just cause of alternating lines of mock leads
-            if i % 2 == 0:
-                #if colorcheck():
-                    newMessage = message.format(firstName=gs.firstNameFormat(data[i][3]), businessName=gs.getBusinessName(data[i][2]), approvalAmount=gs.roundValue(data[i][13]))
-                    self.console.append(vonage.mockSend(eval(newMessage) , data[i][gs.whichColumn(data[i][6])]))
+            #if colorcheck():
+            newMessage = message.format(firstName=gs.formatFirstName(data[i][3]), businessName=gs.formatBusinessName(data[i][2]), approvalAmount=gs.roundApproval(data[i][13]))
+            print(f'{eval(newMessage)} to {gs.formatNumber(data[i][gs.whichColumn(data[i][6])])}\n\n')
+            bot.sendMessage(eval(newMessage), gs.formatNumber(data[i][gs.whichColumn(data[i][6])]))
+              
 
 
 #look into if name = main business

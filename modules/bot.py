@@ -9,18 +9,22 @@ from selenium.webdriver.support import expected_conditions as EC
 
 import os
 from dotenv import load_dotenv
+
 import time
 
-#this will all be initialized in the main.py
-options = Options()
-options.add_experimental_option("detach", True)
-#options.headless = True
-
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-wait = WebDriverWait(driver, 10)
 
 
-def navToMessage():
+
+def sendMessage(message, number):
+
+    options = Options()
+    #options.add_experimental_option("detach", True)
+    #options.headless = True
+
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+    wait = WebDriverWait(driver, 10)
+
+
     load_dotenv()
 
     driver.get('https://entrancegrp.com/login')
@@ -44,9 +48,6 @@ def navToMessage():
     messageBtn = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, ".btn.btn-small.mr-2.btn-success")))
     messageBtn.click()
     
-
-def sendMessage(message, number):
-    
     numberInput = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, ".form-control.numbers-container")))
     numberInput.send_keys(number)
 
@@ -56,14 +57,14 @@ def sendMessage(message, number):
     sendBtnSelected = driver.find_element("xpath", "/html/body/main/div/div[1]/div[3]/div[4]/div/div[1]/div[2]/div[5]/button")
     sendBtn = wait.until(EC.element_to_be_clickable(sendBtnSelected))
     
-    sendBtn.click()
-    
-    
-    
-    
-    
-    
+    #sendBtn.click()
 
-
-navToMessage()
-sendMessage('this is my bot sending this', '14692071247')
+    time.sleep(6)
+    
+    
+    
+    
+'''
+for i in range(2):
+    sendMessage('', '4692071247')
+'''
