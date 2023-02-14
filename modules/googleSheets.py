@@ -14,14 +14,14 @@ def fetchData(firstRow, lastRow):
     credentials = service_account.Credentials.from_service_account_file(
             SERVICE_ACCOUNT_FILE, scopes=SCOPES)
 
-    SPREADSHEET_ID = os.getenv('dummyLeadsSpreadsheetId')
+    SPREADSHEET_ID = os.getenv('leadSpreadsheetId')
 
     service = build('sheets', 'v4', credentials=credentials)
 
 
     sheet = service.spreadsheets()
     result = sheet.values().get(spreadsheetId=SPREADSHEET_ID,
-                                range="sheet1!A" + firstRow + ":N" + lastRow).execute()
+                                range=f"'JOSH''S PIPELINE '!A{firstRow}:N{lastRow}").execute()
 
     values = result.get('values', [])
 

@@ -49,17 +49,21 @@ def sendMessage(message, number):
     messageBtn.click()
     
     numberInput = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, ".form-control.numbers-container")))
+    numberInput.click()
     numberInput.send_keys(number)
 
     messageInput = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, ".form-control.mb-2")))
+    messageInput.click()
     messageInput.send_keys(message)
+    messageInput.send_keys(" ")
+    
 
     sendBtnSelected = driver.find_element("xpath", "/html/body/main/div/div[1]/div[3]/div[4]/div/div[1]/div[2]/div[5]/button")
     sendBtn = wait.until(EC.element_to_be_clickable(sendBtnSelected))
     
-    #sendBtn.click()
+    sendBtn.click()
 
-    time.sleep(6)
+    time.sleep(2)
     
     
     

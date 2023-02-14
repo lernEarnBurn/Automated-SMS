@@ -43,15 +43,16 @@ class MainWindow(QtWidgets.QMainWindow):
       
         
         message = self.message.toPlainText()
-        print(message)
+        #print(message)
 
        
         for i in range(len(data)):
             #if colorcheck():
+
             newMessage = message.format(firstName=gs.formatFirstName(data[i][3]), businessName=gs.formatBusinessName(data[i][2]), approvalAmount=gs.roundApproval(data[i][13]))
             print(f'{eval(newMessage)} to {gs.formatNumber(data[i][gs.whichColumn(data[i][6])])}\n\n')
             bot.sendMessage(eval(newMessage), gs.formatNumber(data[i][gs.whichColumn(data[i][6])]))
-              
+        
 
 
 #look into if name = main business
@@ -70,14 +71,4 @@ MainWindow {background-color: #7FC8F8;}
 app.setStyleSheet(stylesheet)
 window.show()
 app.exec()
-
-
-
-
-
-
-
-
-
-
 
