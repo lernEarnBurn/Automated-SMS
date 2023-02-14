@@ -4,4 +4,5 @@ dotenv
 os
 selenium
 webdriver-manager 
-chrome browser
+chrome-browser
+pyinstaller

@@ -21,7 +21,7 @@ def fetchData(firstRow, lastRow):
 
     sheet = service.spreadsheets()
     result = sheet.values().get(spreadsheetId=SPREADSHEET_ID,
-                                range=f"'JOSH''S PIPELINE '!A{firstRow}:N{lastRow}").execute()
+                                range=f"'JOSH''S PIPELINE '!B{firstRow}:N{lastRow}").execute()
 
     values = result.get('values', [])
 
@@ -78,10 +78,12 @@ def capitalize_words(text):
     return " ".join(capitalized_words)
 
 def whichColumn(value):
-    if value[0] == '(':
+    if value == "":
         return 7
+    elif "(" in value or ")" in value:
+        return 6
     else:
-        return 8
+        return 7
 
 #implement this at the end once you map out how everything else is gonna work
 def equityNumber(value): #data[i][1]

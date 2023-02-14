@@ -7,6 +7,8 @@ import modules.bot as bot
 from PyQt6 import QtWidgets, uic
 
 
+
+
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
@@ -35,7 +37,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         
 
-    
+   
     def runBlaster(self):
         database.writeToDatabase(self.message.toPlainText(), str(self.firstRow.value()), str(self.lastRow.value()))
 
@@ -43,19 +45,21 @@ class MainWindow(QtWidgets.QMainWindow):
       
         
         message = self.message.toPlainText()
-        #print(message)
 
        
         for i in range(len(data)):
             #if colorcheck():
 
-            newMessage = message.format(firstName=gs.formatFirstName(data[i][3]), businessName=gs.formatBusinessName(data[i][2]), approvalAmount=gs.roundApproval(data[i][13]))
-            print(f'{eval(newMessage)} to {gs.formatNumber(data[i][gs.whichColumn(data[i][6])])}\n\n')
+            newMessage = message.format(firstName=gs.formatFirstName(data[i][2]), businessName=gs.formatBusinessName(data[i][1]), approvalAmount=gs.roundApproval(data[i][12]))
+            
             bot.sendMessage(eval(newMessage), gs.formatNumber(data[i][gs.whichColumn(data[i][6])]))
+            self.console.append(f'sent message to {data[i][gs.whichColumn(data[i][6])]}')
+
         
+        self.console.append('Done.')
 
 
-#look into if name = main business
+
 app = QtWidgets.QApplication([])
 window = MainWindow()
 

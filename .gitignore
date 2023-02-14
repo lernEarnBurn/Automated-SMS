@@ -1,3 +1,5 @@
 databaseCreds.json
 joshCreds.json
 .env
+build
+run.exe
