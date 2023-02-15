@@ -22,7 +22,7 @@ def databaseSheet():
 def readDatabase():
         SPREADSHEET_ID = os.getenv('databaseSpreadsheetId')
         result = databaseSheet().values().get(spreadsheetId=SPREADSHEET_ID,
-                       range="sheet1!A1:C1").execute()
+                       range="sheet1!A1:D1").execute()
 
         values = result.get('values', [])
         return values[0]
@@ -33,4 +33,4 @@ def writeToDatabase(updatedMessage, updatedFirst, updatedLast):
         SPREADSHEET_ID = os.getenv('databaseSpreadsheetId')
         updatedData = [[updatedMessage, updatedFirst, updatedLast]]
 
-        request = databaseSheet().values().update(spreadsheetId=SPREADSHEET_ID, range="sheet1!A1:C1", valueInputOption="USER_ENTERED", body={"values": updatedData}).execute()
+        databaseSheet().values().update(spreadsheetId=SPREADSHEET_ID, range="sheet1!A1:C1", valueInputOption="USER_ENTERED", body={"values": updatedData}).execute()
