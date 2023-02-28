@@ -11,7 +11,7 @@ block_cipher = None
 a = Analysis(
     ['main.py'],
     pathex=[],
-    binaries=[],
+    binaries=[('C:\\Users\\lerne\\.wdm\\drivers\\chromedriver\\win32\\110.0.5481\\chromedriver.exe', '.')],
     datas=datas,
     hiddenimports=[],
     hookspath=[],
