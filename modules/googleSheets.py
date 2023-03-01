@@ -7,7 +7,7 @@ import os
 load_dotenv()
 
 def fetchData(firstRow, lastRow):
-    SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
+    SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
     SERVICE_ACCOUNT_FILE = './judaCreds.json'
 
     credentials = None
