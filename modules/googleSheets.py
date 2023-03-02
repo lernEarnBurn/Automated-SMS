@@ -1,12 +1,10 @@
 from googleapiclient.discovery import build
 from google.oauth2 import service_account
 
-from dotenv import load_dotenv
-import os
+import datetime
 
-load_dotenv()
 
-def fetchData(firstRow, lastRow):
+def leadSheet():
     SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
     SERVICE_ACCOUNT_FILE = './judaCreds.json'
 
@@ -14,18 +12,37 @@ def fetchData(firstRow, lastRow):
     credentials = service_account.Credentials.from_service_account_file(
             SERVICE_ACCOUNT_FILE, scopes=SCOPES)
 
-    SPREADSHEET_ID = '123'
 
     service = build('sheets', 'v4', credentials=credentials)
 
-
     sheet = service.spreadsheets()
-    result = sheet.values().get(spreadsheetId=SPREADSHEET_ID,
-                                range=f"'JUDA''S PIPELINE'!B{firstRow}:N{lastRow}").execute()
+
+    return sheet
+
+
+def markSent(row):
+    SPREADSHEET_ID = '1hpqyyfx676I62jasdasddYrWzX0ObJp2BseS-53l_E'
+
+    current_date = str(datetime.datetime.now().strftime('%d/%m/%Y'))
+
+
+    values = [["yes", current_date]]
+
+
+    leadSheet().values().update(spreadsheetId=SPREADSHEET_ID, range=f"'adssadasdsa'!Q{row}:R{row}", valueInputOption="USER_ENTERED", body={"values": values}).execute()
+    print('done')
+
+
+
+def fetchData(firstRow, lastRow):
+    SPREADSHEET_ID = '1hpqyyx676I62fsfsffsafzX0ObJp2BseS-asdasdasdaE'
+
+    result = leadSheet().values().get(spreadsheetId=SPREADSHEET_ID, range=f"'JU'!B{firstRow}:R{lastRow}").execute()
 
     values = result.get('values', [])
 
     return values
+
 
 
 def formatFirstName(name):
