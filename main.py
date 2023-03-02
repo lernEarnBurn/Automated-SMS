@@ -40,6 +40,8 @@ class MainWindow(QtWidgets.QMainWindow):
         database.writeToDatabase(self.message.toPlainText(), str(self.firstRow.value()), str(self.lastRow.value()))
 
         data = gs.fetchData(str(self.firstRow.value()), str(self.lastRow.value()))
+
+        rowCounter = self.firstRow.value()
       
         message = self.message.toPlainText()
 
@@ -52,8 +54,10 @@ class MainWindow(QtWidgets.QMainWindow):
 
             newMessage = message.format(firstName=gs.formatFirstName(data[i][2]), businessName=gs.formatBusinessName(data[i][1]), approvalAmount=gs.roundApproval(data[i][12]))
             
-            
             bot.sendMessage(eval(newMessage), gs.formatNumber(data[i][gs.whichColumn(data[i][6])]))
+
+            gs.markSent(str(rowCounter))
+            rowCounter += 1
            
         
         bot.closeBrowser()
