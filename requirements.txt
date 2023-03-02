@@ -1,7 +1,6 @@
 google-api-python-client
 google_auth_oauthlib
-dotenv
-os
+datetime
 selenium
 webdriver-manager 
 chrome-browser
