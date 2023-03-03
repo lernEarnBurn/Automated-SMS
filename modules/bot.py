@@ -35,10 +35,10 @@ def openBrowser():
     driver.get('https://entrancegrp.com/login')
     
     email = driver.find_element(By.XPATH, "//input[@id='inputFieldemail']")
-    email.send_keys('whatup@gmail.com')
+    email.send_keys('entrance_email')
 
     password = driver.find_element(By.XPATH, "//input[@id='inputFieldpassword']")
-    password.send_keys('password123')
+    password.send_keys('entrance_password')
 
     loginForm = driver.find_element(By.XPATH, "//form[@action='/login']")
     loginForm.submit()

@@ -6,7 +6,7 @@ import datetime
 
 def leadSheet():
     SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
-    SERVICE_ACCOUNT_FILE = './judaCreds.json'
+    SERVICE_ACCOUNT_FILE = 'credentials.json'
 
     credentials = None
     credentials = service_account.Credentials.from_service_account_file(
@@ -21,7 +21,7 @@ def leadSheet():
 
 
 def markSent(row):
-    SPREADSHEET_ID = '1hpqyyfx676I62jasdasddYrWzX0ObJp2BseS-53l_E'
+    SPREADSHEET_ID = 'SPREADSHEET_ID'
 
     current_date = str(datetime.datetime.now().strftime('%d/%m/%Y'))
 
@@ -35,7 +35,7 @@ def markSent(row):
 
 
 def fetchData(firstRow, lastRow):
-    SPREADSHEET_ID = '1hpqyyx676I62fsfsffsafzX0ObJp2BseS-asdasdasdaE'
+    SPREADSHEET_ID = 'SPREADSHEET_ID'
 
     result = leadSheet().values().get(spreadsheetId=SPREADSHEET_ID, range=f"'JU'!B{firstRow}:R{lastRow}").execute()
 
