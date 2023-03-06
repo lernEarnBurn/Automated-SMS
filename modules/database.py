@@ -8,7 +8,7 @@ load_dotenv()
 
 def databaseSheet():
         SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
-        SERVICE_ACCOUNT_FILE = 'credentials.json'
+        SERVICE_ACCOUNT_FILE = 'joshCreds.json'
 
         credentials = None
         credentials = service_account.Credentials.from_service_account_file(
@@ -20,9 +20,9 @@ def databaseSheet():
 
 
 def readDatabase():
-        SPREADSHEET_ID = 'SPREADSHEET_ID'
+        SPREADSHEET_ID = 'spreadsheet_id'
         result = databaseSheet().values().get(spreadsheetId=SPREADSHEET_ID,
-                       range="sheet1!A1:C1").execute()
+                       range="sheet1!A1:E1").execute()
 
         values = result.get('values', [])
         return values[0]
@@ -30,7 +30,28 @@ def readDatabase():
 
 
 def writeToDatabase(updatedMessage, updatedFirst, updatedLast):
-        SPREADSHEET_ID = 'SPREADSHEET_ID'
+        SPREADSHEET_ID = 'spreadsheet_id'
         updatedData = [[updatedMessage, updatedFirst, updatedLast]]
 
         databaseSheet().values().update(spreadsheetId=SPREADSHEET_ID, range="sheet1!A1:C1", valueInputOption="USER_ENTERED", body={"values": updatedData}).execute()
+
+
+def readPrevResponses():
+        SPREADSHEET_ID = 'spreadsheet_id'
+        result = databaseSheet().values().get(spreadsheetId=SPREADSHEET_ID,
+                       range="sheet1!E1").execute()
+
+        values = result.get('values', [])
+        try:
+                return values[0]
+        except:
+                return [""]
+
+def writeCurrentResponses(responseNumbers):
+        SPREADSHEET_ID = 'spreadsheet_id'
+
+        updatedData = [[" ".join(responseNumbers)]]
+
+        databaseSheet().values().update(spreadsheetId=SPREADSHEET_ID, range="sheet1!E1", valueInputOption="RAW", body={"values": updatedData}).execute()
+
+

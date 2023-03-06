@@ -6,7 +6,7 @@ import datetime
 
 def leadSheet():
     SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
-    SERVICE_ACCOUNT_FILE = 'credentials.json'
+    SERVICE_ACCOUNT_FILE = 'joshCreds.json'
 
     credentials = None
     credentials = service_account.Credentials.from_service_account_file(
@@ -42,6 +42,39 @@ def fetchData(firstRow, lastRow):
     values = result.get('values', [])
 
     return values
+
+def getRowData(row ,letter):
+    rowStart = row - 2000
+    SPREADSHEET_ID = 'spreadsheet_id'
+
+    result = leadSheet().values().get(spreadsheetId=SPREADSHEET_ID, range=f"'JOSH''S PIPELINE '!{letter}{rowStart}:{letter}").execute()
+    
+    
+    values = []
+
+    for i, row in enumerate(result['values']):
+        if len(row) > 0:
+            data = {
+                'row' : i + rowStart,
+                'value' : formatNumber(row[0])
+            }
+            
+            values.append(data)
+
+    return values
+    
+    
+            
+
+
+def markResponse(row):
+    SPREADSHEET_ID = 'spreadsheet_id'
+
+    values = [["yes"]]
+
+
+    leadSheet().values().update(spreadsheetId=SPREADSHEET_ID, range=f"'JOSH''S PIPELINE '!S{row}", valueInputOption="USER_ENTERED", body={"values": values}).execute()
+    print('done')
 
 
 
@@ -116,3 +149,5 @@ def formatNumber(number):
     return '1' + ''.join(filter(str.isdigit, number))
 
 
+if __name__ == '__main__':
+    getRowData(4000, 'I')

@@ -3,6 +3,8 @@ import modules.googleSheets as gs
 import modules.database as database
 
 import modules.bot as bot
+import modules.responseCheck as rc
+
 
 from PyQt6 import QtWidgets, uic
 
@@ -60,8 +62,10 @@ class MainWindow(QtWidgets.QMainWindow):
             rowCounter += 1
            
         
-        bot.closeBrowser()
+        self.console.append('')
+        self.console.append('Checking for responses...')
 
+        rc.markResponses(self.console)
         
         self.console.append('Done.')
 

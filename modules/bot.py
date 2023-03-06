@@ -1,12 +1,13 @@
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import NoSuchElementException
 
-import os
+from googleSheets import formatNumber
+
 from dotenv import load_dotenv
 
 import time
@@ -15,7 +16,6 @@ import time
 
 
 options = Options()
-#options.add_experimental_option("detach", True)
 options.add_argument("--silent")
 options.add_argument("--headless")
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
@@ -35,10 +35,10 @@ def openBrowser():
     driver.get('https://entrancegrp.com/login')
     
     email = driver.find_element(By.XPATH, "//input[@id='inputFieldemail']")
-    email.send_keys('entrance_email')
+    email.send_keys('email')
 
     password = driver.find_element(By.XPATH, "//input[@id='inputFieldpassword']")
-    password.send_keys('entrance_password')
+    password.send_keys('password')
 
     loginForm = driver.find_element(By.XPATH, "//form[@action='/login']")
     loginForm.submit()
@@ -78,9 +78,31 @@ def closeBrowser():
     driver.quit()
     
     
+def getResponseNumbers():
+    responseNumbers = []
+
+    messageTab = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, ".side-menu__item.tra")))
+    messageTab.click()
+
+    selectContainer = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, ".channel-number")))
+    selectContainer.click()
+
+    body = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "body")))
+
+    numbers = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".channel-number")))
+    amountToHave =  wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/main/div/div[1]/div[3]/div[3]/div[1]/div/div[1]/div[1]/div[1]/span[1]')))
     
-    
-'''
-for i in range(2):
-    sendMessage('', '4692071247')
-'''
+    while len(numbers) != int(amountToHave.text):
+        body.send_keys(Keys.ARROW_DOWN)
+        numbers = driver.find_elements(By.CSS_SELECTOR, ".channel-number")
+
+
+    numbers = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".channel-number")))
+    for number in numbers:
+        responseNumbers.append(formatNumber(number.text))
+        #responseNumbers.append("")
+
+    print(len(responseNumbers))
+
+
+    return [number[1:] for number in responseNumbers]
