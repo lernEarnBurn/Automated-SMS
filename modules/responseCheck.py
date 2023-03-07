@@ -1,6 +1,6 @@
-from bot import closeBrowser, getResponseNumbers
-from database import writeCurrentResponses, readPrevResponses
-from googleSheets import getRowData, markResponse
+from modules.bot import closeBrowser, getResponseNumbers
+from modules.database import writeCurrentResponses, readPrevResponses
+from modules.googleSheets import getRowData, markResponse
 
 def markResponses(console):
     currentResponses = getResponseNumbers()

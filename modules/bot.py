@@ -4,11 +4,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
-from selenium.common.exceptions import NoSuchElementException
 
-from googleSheets import formatNumber
-
-from dotenv import load_dotenv
+from modules.googleSheets import formatNumber
 
 import time
 
@@ -27,7 +24,6 @@ driver = webdriver.Chrome(executable_path='../driver/chromedriver.exe', options=
 wait = WebDriverWait(driver, 20)
 
 
-load_dotenv()
 
 def openBrowser():
 
@@ -62,7 +58,7 @@ def sendMessage(message, number):
 
     messageInput.send_keys(message)
     messageInput.send_keys(" ")
-    messageInput.send_keys(" ")
+    messageInput.click()
 
     sendBtnSelected = driver.find_element("xpath", "/html/body/main/div/div[1]/div[3]/div[4]/div/div[1]/div[2]/div[5]/button")
     sendBtn = wait.until(EC.element_to_be_clickable(sendBtnSelected))
@@ -100,7 +96,6 @@ def getResponseNumbers():
     numbers = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".channel-number")))
     for number in numbers:
         responseNumbers.append(formatNumber(number.text))
-        #responseNumbers.append("")
 
     print(len(responseNumbers))
 
