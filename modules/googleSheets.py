@@ -44,7 +44,10 @@ def fetchData(firstRow, lastRow):
     return values
 
 def getRowData(row ,letter):
-    rowStart = row - 2000
+    if row > 2000:
+        rowStart = row - 2000
+    else:
+        rowStart = 3
     SPREADSHEET_ID = 'spreadsheet_id'
 
     result = leadSheet().values().get(spreadsheetId=SPREADSHEET_ID, range=f"'JOSH''S PIPELINE '!{letter}{rowStart}:{letter}").execute()
