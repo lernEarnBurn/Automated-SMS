@@ -1,4 +1,4 @@
-# Automated-SMS
+# mass-sms
 Uses Google Sheets API to personalize text and grab numbers to Text Blast (uses a bot to automate interaction with escape sms platform). After messages sent it scrapes the responses and marks them with time stamps to allow for 
 data collection.
 
