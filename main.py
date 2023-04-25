@@ -5,9 +5,11 @@ import modules.database as database
 import modules.bot as bot
 import modules.responseCheck as rc
 
+import tkinter
+import customtkinter
 
-from PyQt6 import QtWidgets, uic
 
+'''
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -68,23 +70,44 @@ class MainWindow(QtWidgets.QMainWindow):
         rc.markResponses(self.console)
         
         self.console.append('Done.')
-
+'''
 
 if __name__ == '__main__':
-    app = QtWidgets.QApplication([])
-    window = MainWindow()
+    customtkinter.set_appearance_mode("dark")  
+    customtkinter.set_default_color_theme("blue")  # Themes: blue (default), dark-blue, green
 
-    stylesheet = """
-    QTextEdit {border-radius: 25px;}
+    APP_HEIGHT = 500
+    APP_WIDTH = 700
 
-    QLabel {color:#F9F9F9;}
+    app = customtkinter.CTk()  # create CTk window like you do with the Tk window
+    app.geometry(f"{APP_WIDTH}x{APP_HEIGHT}")
+    app.grid_columnconfigure(0, weight=1)
 
-    MainWindow {background-color: #7FC8F8;}
-    """
+    def button_function():
+        print("button pressed")
 
-    app.setStyleSheet(stylesheet)
-    window.show()
-    app.exec()
+    # Use CTkButton instead of tkinter Button
+    button = customtkinter.CTkButton(master=app, text="Run", command=button_function)
+    button.grid(row=0, column=1, padx=10, pady=10, sticky="se")
+    scrollable_frame = customtkinter.CTkScrollableFrame(app, width=200, height=200)
+
+    entry = customtkinter.CTkEntry(app, placeholder_text="CTkEntry")
+    #entry.grid(row=0, column=1, padx=10, pady=10, sticky="e")
+
+    frame = customtkinter.CTkFrame(master=app, width=((APP_WIDTH - 10) / 2 ), height=(APP_HEIGHT - 10))
+    frame.grid(row=0, column=0, pady=5, padx=5, sticky="w")
+
+
+
+    textbox = customtkinter.CTkTextbox(app, width=(APP_WIDTH - 10) / 2, height=())
+    textbox.grid(row=0, column=1, pady=5, padx=5, sticky="ne")
+
+    textbox.insert("0.0", "new text to insert")  # insert at line 0 character 0
+    text = textbox.get("0.0", "end")  # get text from line 0 character 0 till the end
+    
+
+
+    app.mainloop()
 
 
 
