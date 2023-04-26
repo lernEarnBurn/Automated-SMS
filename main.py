@@ -5,7 +5,7 @@ import modules.database as database
 import modules.bot as bot
 import modules.responseCheck as rc
 
-import tkinter
+import tkinter as tk
 import customtkinter
 
 
@@ -81,8 +81,8 @@ if __name__ == '__main__':
 
     app = customtkinter.CTk() 
     app.geometry(f"{APP_WIDTH}x{APP_HEIGHT}")
-   
-    
+    app.title("Mass SMS")
+
 
     console = customtkinter.CTkTextbox(app, width=((APP_WIDTH - 10) / 2), height=((APP_HEIGHT - 10)), state="disabled")
     console.grid(row=0, column=0, pady=5, padx=5, sticky="w")
@@ -94,7 +94,7 @@ if __name__ == '__main__':
 
     textbox = customtkinter.CTkTextbox(frame, height=(((APP_HEIGHT / 2.5) - 10)), font=('system-ui', 14))
     textbox.grid(row=0, column=0, pady=(5, 65), padx=5, sticky="new")
-    textbox.insert("0.0", 'f"Hi {firstName}, this is Juda from Bridge Consolidation. I have your company {businessName} approved for {approvalAmount}. What''s the best email I can reach you by."')  # insert at line 0 character 0
+    textbox.insert("0.0", 'f"Hi {firstName}, this is Juda from Bridge Consolidation. I have your company {businessName} approved for {approvalAmount}. What''s the best email I can reach you by."') 
     text = textbox.get("0.0", "end")  
     
 
