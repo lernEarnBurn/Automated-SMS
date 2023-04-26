@@ -74,7 +74,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
 if __name__ == '__main__':
     customtkinter.set_appearance_mode("dark")  
-    customtkinter.set_default_color_theme("blue")  # Themes: blue (default), dark-blue, green
+    customtkinter.set_default_color_theme("dark-blue")  # Themes: blue (default), dark-blue, green
 
     APP_HEIGHT = 500
     APP_WIDTH = 700
@@ -82,30 +82,31 @@ if __name__ == '__main__':
     app = customtkinter.CTk()  # create CTk window like you do with the Tk window
     app.geometry(f"{APP_WIDTH}x{APP_HEIGHT}")
     app.grid_columnconfigure(0, weight=1)
+   
 
-    def button_function():
-        print("button pressed")
-
-    # Use CTkButton instead of tkinter Button
-    button = customtkinter.CTkButton(master=app, text="Run", command=button_function)
-    button.grid(row=0, column=1, padx=10, pady=10, sticky="se")
-    scrollable_frame = customtkinter.CTkScrollableFrame(app, width=200, height=200)
-
-    entry = customtkinter.CTkEntry(app, placeholder_text="CTkEntry")
-    #entry.grid(row=0, column=1, padx=10, pady=10, sticky="e")
-
-    frame = customtkinter.CTkFrame(master=app, width=((APP_WIDTH - 10) / 2 ), height=(APP_HEIGHT - 10))
-    frame.grid(row=0, column=0, pady=5, padx=5, sticky="w")
+    console = customtkinter.CTkTextbox(app, width=((APP_WIDTH - 10) / 2), height=((APP_HEIGHT - 10)), state="disabled")
+    console.grid(row=0, column=0, pady=5, padx=5, sticky="w")
+    console.insert("0.0", "new text to insert") 
 
 
 
-    textbox = customtkinter.CTkTextbox(app, width=(APP_WIDTH - 10) / 2, height=())
+    textbox = customtkinter.CTkTextbox(app, width=((APP_WIDTH - 10) / 2), height=(((APP_HEIGHT / 2) - 10)))
     textbox.grid(row=0, column=1, pady=5, padx=5, sticky="ne")
-
     textbox.insert("0.0", "new text to insert")  # insert at line 0 character 0
     text = textbox.get("0.0", "end")  # get text from line 0 character 0 till the end
-    
 
+    frame = customtkinter.CTkFrame(master=app, width=400)
+    frame.grid(row=0, column=1, pady=5, padx=5, sticky="se")
+
+    starting_row = customtkinter.CTkEntry(frame, width=APP_WIDTH / 2.9,  placeholder_text="Starting Row")
+    starting_row.grid(row=1, column=0, padx=50, pady=10, sticky="n")
+
+    ending_row = customtkinter.CTkEntry(frame, width=APP_WIDTH / 2.9, placeholder_text="Ending Row")
+    ending_row.grid(row=2, column=0, padx=50, pady=10)
+
+    button = customtkinter.CTkButton(master=frame, width=APP_WIDTH / 2.9, text="Run", command=lambda : print('button pressed'))
+    button.grid(row=3, column=0, padx=10, pady=10, sticky="s")
+    
 
     app.mainloop()
 
