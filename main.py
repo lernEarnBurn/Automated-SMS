@@ -74,38 +74,38 @@ class MainWindow(QtWidgets.QMainWindow):
 
 if __name__ == '__main__':
     customtkinter.set_appearance_mode("dark")  
-    customtkinter.set_default_color_theme("dark-blue")  # Themes: blue (default), dark-blue, green
+    customtkinter.set_default_color_theme("blue") 
 
     APP_HEIGHT = 500
     APP_WIDTH = 700
 
-    app = customtkinter.CTk()  # create CTk window like you do with the Tk window
+    app = customtkinter.CTk() 
     app.geometry(f"{APP_WIDTH}x{APP_HEIGHT}")
-    app.grid_columnconfigure(0, weight=1)
    
+    
 
     console = customtkinter.CTkTextbox(app, width=((APP_WIDTH - 10) / 2), height=((APP_HEIGHT - 10)), state="disabled")
     console.grid(row=0, column=0, pady=5, padx=5, sticky="w")
     console.insert("0.0", "new text to insert") 
 
 
+    frame = customtkinter.CTkFrame(master=app)
+    frame.grid(row=0, column=1, pady=5, padx=5, sticky="news")
 
-    textbox = customtkinter.CTkTextbox(app, width=((APP_WIDTH - 10) / 2), height=(((APP_HEIGHT / 2) - 10)))
-    textbox.grid(row=0, column=1, pady=5, padx=5, sticky="ne")
-    textbox.insert("0.0", "new text to insert")  # insert at line 0 character 0
-    text = textbox.get("0.0", "end")  # get text from line 0 character 0 till the end
-
-    frame = customtkinter.CTkFrame(master=app, width=400)
-    frame.grid(row=0, column=1, pady=5, padx=5, sticky="se")
+    textbox = customtkinter.CTkTextbox(frame, height=(((APP_HEIGHT / 2.5) - 10)), font=('system-ui', 14))
+    textbox.grid(row=0, column=0, pady=(5, 65), padx=5, sticky="new")
+    textbox.insert("0.0", 'f"Hi {firstName}, this is Juda from Bridge Consolidation. I have your company {businessName} approved for {approvalAmount}. What''s the best email I can reach you by."')  # insert at line 0 character 0
+    text = textbox.get("0.0", "end")  
+    
 
     starting_row = customtkinter.CTkEntry(frame, width=APP_WIDTH / 2.9,  placeholder_text="Starting Row")
-    starting_row.grid(row=1, column=0, padx=50, pady=10, sticky="n")
+    starting_row.grid(row=1, column=0, padx=50, pady=13)
 
     ending_row = customtkinter.CTkEntry(frame, width=APP_WIDTH / 2.9, placeholder_text="Ending Row")
-    ending_row.grid(row=2, column=0, padx=50, pady=10)
+    ending_row.grid(row=2, column=0, padx=50, pady=13)
 
     button = customtkinter.CTkButton(master=frame, width=APP_WIDTH / 2.9, text="Run", command=lambda : print('button pressed'))
-    button.grid(row=3, column=0, padx=10, pady=10, sticky="s")
+    button.grid(row=3, column=0, padx=10, pady=13, sticky="s")
     
 
     app.mainloop()
