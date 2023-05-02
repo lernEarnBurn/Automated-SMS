@@ -34,7 +34,7 @@ def findAndMarkResponse(data, numbersToFind, console, arr):
      for i in range(len(data)):
         if data[i]['value'] in numbersToFind and len(data[i]['value']) == 11:
             markResponse(data[i]['row'])
-            console.append(f"added response to row {data[i]['row']}")
+            console.insert("end", f"\nadded response to row {data[i]['row']}")
             arr.append(data[i]['value'])
             
 

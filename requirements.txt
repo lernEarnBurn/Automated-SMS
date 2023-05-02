@@ -5,3 +5,4 @@ selenium
 webdriver-manager 
 chrome-browser
 pyinstaller
+custom-tkinter

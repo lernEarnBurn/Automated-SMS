@@ -8,7 +8,7 @@ load_dotenv()
 
 def databaseSheet():
         SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
-        SERVICE_ACCOUNT_FILE = 'joshCreds.json'
+        SERVICE_ACCOUNT_FILE = './modules/joshCreds.json'
 
         credentials = None
         credentials = service_account.Credentials.from_service_account_file(
@@ -20,7 +20,7 @@ def databaseSheet():
 
 
 def readDatabase():
-        SPREADSHEET_ID = 'spreadsheet_id'
+        SPREADSHEET_ID = '10NivXLPLnMEz7l4nN4Hz1BbRd7Xm2ZBnBBJIx9EioTk'
         result = databaseSheet().values().get(spreadsheetId=SPREADSHEET_ID,
                        range="sheet1!A1:E1").execute()
 
