@@ -2,7 +2,7 @@ from modules.bot import closeBrowser, getResponseNumbers
 from modules.database import writeCurrentResponses, readPrevResponses
 from modules.googleSheets import getRowData, markResponse
 
-def markResponses(console):
+def markResponses(console, endRowVal):
     currentResponses = getResponseNumbers()
     closeBrowser()
 
@@ -19,8 +19,8 @@ def markResponses(console):
         print(unmarkedResponses)
         
 
-        sheetData1 = getRowData(4500, 'I')
-        sheetData2 = getRowData(4500, 'J')
+        sheetData1 = getRowData(endRowVal, 'I')
+        sheetData2 = getRowData(endRowVal, 'J')
 
         numberFound = []
 
@@ -34,7 +34,7 @@ def findAndMarkResponse(data, numbersToFind, console, arr):
      for i in range(len(data)):
         if data[i]['value'] in numbersToFind and len(data[i]['value']) == 11:
             markResponse(data[i]['row'])
-            console.insert("end", f"\nadded response to row {data[i]['row']}")
+            console.insert("end", f"\nresponse at row {data[i]['row']}")
             arr.append(data[i]['value'])
             
 

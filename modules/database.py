@@ -1,14 +1,14 @@
 from googleapiclient.discovery import build
 from google.oauth2 import service_account
 
-from dotenv import load_dotenv
-import os
 
-load_dotenv()
+
+
+
 
 def databaseSheet():
         SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
-        SERVICE_ACCOUNT_FILE = './modules/joshCreds.json'
+        SERVICE_ACCOUNT_FILE = './judaCreds.json'
 
         credentials = None
         credentials = service_account.Credentials.from_service_account_file(
@@ -20,7 +20,7 @@ def databaseSheet():
 
 
 def readDatabase():
-        SPREADSHEET_ID = '10NivXLPLnMEz7l4nN4Hz1BbRd7Xm2ZBnBBJIx9EioTk'
+        SPREADSHEET_ID = 'sadknskjdbakjbdksbadbasdbashd'
         result = databaseSheet().values().get(spreadsheetId=SPREADSHEET_ID,
                        range="sheet1!A1:E1").execute()
 
@@ -30,14 +30,14 @@ def readDatabase():
 
 
 def writeToDatabase(updatedMessage, updatedFirst, updatedLast):
-        SPREADSHEET_ID = 'spreadsheet_id'
+        SPREADSHEET_ID = '1Kfy0zCpGXGasdasdadasda_cvTKgm74DdP7JrC2YaZKYsf2AWiKM4BU'
         updatedData = [[updatedMessage, updatedFirst, updatedLast]]
 
         databaseSheet().values().update(spreadsheetId=SPREADSHEET_ID, range="sheet1!A1:C1", valueInputOption="USER_ENTERED", body={"values": updatedData}).execute()
 
 
 def readPrevResponses():
-        SPREADSHEET_ID = 'spreadsheet_id'
+        SPREADSHEET_ID = '1KfG_cvTKgm74DdadsadasdadsP7JrC2YaZKYsf2AWiKM4BU'
         result = databaseSheet().values().get(spreadsheetId=SPREADSHEET_ID,
                        range="sheet1!E1").execute()
 
@@ -48,7 +48,7 @@ def readPrevResponses():
                 return [""]
 
 def writeCurrentResponses(responseNumbers):
-        SPREADSHEET_ID = 'spreadsheet_id'
+        SPREADSHEET_ID = '1Kfy0zCpGXG_csdabkdbskjdbakbdaskdYaZKYasdadadU'
 
         updatedData = [[" ".join(responseNumbers)]]
 

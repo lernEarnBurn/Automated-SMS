@@ -6,7 +6,7 @@ import datetime
 
 def leadSheet():
     SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
-    SERVICE_ACCOUNT_FILE = 'joshCreds.json'
+    SERVICE_ACCOUNT_FILE = './judaCreds.json'
 
     credentials = None
     credentials = service_account.Credentials.from_service_account_file(
@@ -21,7 +21,7 @@ def leadSheet():
 
 
 def markSent(row):
-    SPREADSHEET_ID = 'SPREADSHEET_ID'
+    SPREADSHEET_ID = '1hpqadsdsadI62jYrWzX0ObJp2Bs53sadsaddsbda'
 
     current_date = str(datetime.datetime.now().strftime('%d/%m/%Y'))
 
@@ -29,15 +29,15 @@ def markSent(row):
     values = [["yes", current_date]]
 
 
-    leadSheet().values().update(spreadsheetId=SPREADSHEET_ID, range=f"'adssadasdsa'!Q{row}:R{row}", valueInputOption="USER_ENTERED", body={"values": values}).execute()
+    leadSheet().values().update(spreadsheetId=SPREADSHEET_ID, range=f"'JUDA''S PIPELINE'!Q{row}:R{row}", valueInputOption="USER_ENTERED", body={"values": values}).execute()
     print('done')
 
 
 
 def fetchData(firstRow, lastRow):
-    SPREADSHEET_ID = 'SPREADSHEET_ID'
+    SPREADSHEET_ID = '1hpqyyx676IasddsadaJp2BseS-53sadsaddsbda'
 
-    result = leadSheet().values().get(spreadsheetId=SPREADSHEET_ID, range=f"'JU'!B{firstRow}:R{lastRow}").execute()
+    result = leadSheet().values().get(spreadsheetId=SPREADSHEET_ID, range=f"'JUDA''S PIPELINE'!B{firstRow}:R{lastRow}").execute()
 
     values = result.get('values', [])
 
@@ -48,9 +48,9 @@ def getRowData(row ,letter):
         rowStart = row - 2000
     else:
         rowStart = 3
-    SPREADSHEET_ID = 'spreadsheet_id'
+    SPREADSHEET_ID = '1hpqyyx676I62jYrWzX0ObJp2BseS-53sadsaddsbda'
 
-    result = leadSheet().values().get(spreadsheetId=SPREADSHEET_ID, range=f"'JOSH''S PIPELINE '!{letter}{rowStart}:{letter}").execute()
+    result = leadSheet().values().get(spreadsheetId=SPREADSHEET_ID, range=f"'JUDA''S PIPELINE'!{letter}{rowStart}:{letter}").execute()
     
     
     values = []
@@ -71,12 +71,12 @@ def getRowData(row ,letter):
 
 
 def markResponse(row):
-    SPREADSHEET_ID = 'spreadsheet_id'
+    SPREADSHEET_ID = '1hpqyyx676I62jYrWzX0ObJp2BseS-53sadsaddsbd a'
 
     values = [["yes"]]
 
 
-    leadSheet().values().update(spreadsheetId=SPREADSHEET_ID, range=f"'JOSH''S PIPELINE '!S{row}", valueInputOption="USER_ENTERED", body={"values": values}).execute()
+    leadSheet().values().update(spreadsheetId=SPREADSHEET_ID,  range=f"'JUDA''S PIPELINE'!S{row}", valueInputOption="USER_ENTERED", body={"values": values}).execute()
     print('done')
 
 

@@ -7,7 +7,6 @@ import modules.responseCheck as rc
 
 import customtkinter
 
-import asyncio
 
 
 def blitUI():
@@ -27,9 +26,6 @@ def blitUI():
     console = customtkinter.CTkTextbox(app, width=((APP_WIDTH - 10) / 2), height=((APP_HEIGHT - 10)), font=('system-ui', 16))
     console.grid(row=0, column=0, pady=5, padx=5, sticky="w")
 
-    console.insert("1.0", "new text to insert") 
-    console.insert("end", "\nthis is the end")
-    console.configure(state="disabled")
   
 
 
@@ -53,16 +49,10 @@ def blitUI():
     ending_row.insert(0, storedValues[2])
     print(ending_row.get())
 
-
-    button = customtkinter.CTkButton(master=frame, width=APP_WIDTH / 2.9, text="Run", command=asyncio.run(runBlaster()))
-    button.grid(row=3, column=0, padx=10, pady=13, sticky="s")
-    
-
-    app.mainloop()
-
    
-    async def runBlaster():
-        first_row_value = starting_row.get()
+    def runBlaster():
+        first_row_value = int(starting_row.get())
+        last_row_value = int(ending_row.get())
 
         database.writeToDatabase(messageBox.get("1.0", "end"), first_row_value, ending_row.get())
         data = gs.fetchData(first_row_value, ending_row.get())
@@ -73,19 +63,26 @@ def blitUI():
 
 
         for i in range(len(data)):
-            await console.insert("end", f'\nsending message to {data[i][gs.whichColumn(data[i][6])]}...')
+            console.insert("end", f'\nsent message to {data[i][gs.whichColumn(data[i][6])]}...')
             newMessage = message.format(firstName=gs.formatFirstName(data[i][2]), businessName=gs.formatBusinessName(data[i][1]), approvalAmount=gs.roundApproval(data[i][12]))
 
-            await bot.sendMessage(eval(newMessage), gs.formatNumber(data[i][gs.whichColumn(data[i][6])]))
-            await gs.markSent(rowCounter)
+            bot.sendMessage(eval(newMessage), gs.formatNumber(data[i][gs.whichColumn(data[i][6])]))
+            gs.markSent(str(rowCounter))
             rowCounter += 1
 
 
        
         console.insert("end", '\n\nChecking for responses...')
-        rc.markResponses(console)
+        rc.markResponses(console, last_row_value)
 
         console.insert("end", '\n\nDone')
+    
+    
+    button = customtkinter.CTkButton(master=frame, width=APP_WIDTH / 2.9, text="Run", command=runBlaster)
+    button.grid(row=3, column=0, padx=10, pady=13, sticky="s")
+    
+
+    app.mainloop()
 
 
 if __name__ == '__main__':
