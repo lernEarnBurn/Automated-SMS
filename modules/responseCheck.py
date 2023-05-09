@@ -1,33 +1,39 @@
-from modules.bot import closeBrowser, getResponseNumbers
+from modules.bot import closeBrowser, getResponseNumbers, checkIfResponses
 from modules.database import writeCurrentResponses, readPrevResponses
 from modules.googleSheets import getRowData, markResponse
 
 def markResponses(console, endRowVal):
-    currentResponses = getResponseNumbers()
-    closeBrowser()
+        # need to figure out this non async shitstorm  
+        if checkIfResponses():
+            currentResponses = getResponseNumbers()
+            
+            closeBrowser()
 
-    prevResponses = readPrevResponses()[0].split()
-    if len(currentResponses) > len(prevResponses): 
-        unmarkedResponses = []
-        for i in range(len(currentResponses)):
-            if currentResponses[i] in prevResponses:
-                pass
-            else:
-                unmarkedResponses.append(currentResponses[i])
+            prevResponses = readPrevResponses()[0].split()
+            if len(currentResponses) > len(prevResponses): 
+                unmarkedResponses = []
+                for i in range(len(currentResponses)):
+                    if currentResponses[i] in prevResponses:
+                        pass
+                    else:
+                        unmarkedResponses.append(currentResponses[i])
 
-        print(len(unmarkedResponses))
-        print(unmarkedResponses)
-        
+                print(len(unmarkedResponses))
+                print(unmarkedResponses)
 
-        sheetData1 = getRowData(endRowVal, 'I')
-        sheetData2 = getRowData(endRowVal, 'J')
 
-        numberFound = []
+                sheetData1 = getRowData(endRowVal, 'I')
+                sheetData2 = getRowData(endRowVal, 'J')
 
-        findAndMarkResponse(sheetData1, unmarkedResponses, console, numberFound)
-        findAndMarkResponse(sheetData2, unmarkedResponses, console, numberFound)
+                numberFound = []
 
-        writeCurrentResponses(numberFound)
+            findAndMarkResponse(sheetData1, unmarkedResponses, console, numberFound)
+            findAndMarkResponse(sheetData2, unmarkedResponses, console, numberFound)
+
+            writeCurrentResponses(numberFound)
+        else:
+            closeBrowser()
+
 
     
 def findAndMarkResponse(data, numbersToFind, console, arr):
@@ -40,5 +46,5 @@ def findAndMarkResponse(data, numbersToFind, console, arr):
 
 
 if __name__ == '__main__':
-    markResponses()
+    print(getResponseNumbers())
     
