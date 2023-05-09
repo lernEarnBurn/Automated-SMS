@@ -14,7 +14,7 @@ import time
 
 options = Options()
 options.add_argument("--silent")
-options.add_argument("--headless")
+#options.add_argument("--headless")
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
 
 args = ["hide_console", ]
@@ -31,10 +31,10 @@ def openBrowser():
     driver.get('https://entrancegrp.com/login')
     
     email = driver.find_element(By.XPATH, "//input[@id='inputFieldemail']")
-    email.send_keys('email@email.com')
+    email.send_keys('email')
 
     password = driver.find_element(By.XPATH, "//input[@id='inputFieldpassword']")
-    password.send_keys('Password123')
+    password.send_keys('password')
 
     loginForm = driver.find_element(By.XPATH, "//form[@action='/login']")
     loginForm.submit()
@@ -57,6 +57,8 @@ def sendMessage(message, number):
     messageInput.click()
 
     messageInput.send_keys(message)
+    messageInput.send_keys(" ")
+    messageInput.click()
     messageInput.send_keys(" ")
     messageInput.click()
 
@@ -101,3 +103,17 @@ def getResponseNumbers():
 
 
     return [number[1:] for number in responseNumbers]
+
+
+
+def checkIfResponses():
+    
+    messageTab = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, ".side-menu__item.tra")))
+    messageTab.click()
+
+    no_responses = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="app"]/div/div[1]/div[3]/div[3]/div[1]/div/div[1]/div[1]/div[1]/span[1]')))
+
+    if no_responses.text == "0":
+        return False
+    else:
+        return True
