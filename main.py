@@ -9,6 +9,7 @@ import customtkinter
 
 
 
+
 def blitUI():
     customtkinter.set_appearance_mode("dark")  
     customtkinter.set_default_color_theme("blue") 
@@ -70,10 +71,10 @@ def blitUI():
             gs.markSent(str(rowCounter))
             rowCounter += 1
 
-
-       
-        console.insert("end", '\n\nChecking for responses...')
-        rc.markResponses(console, last_row_value)
+        
+            #console.insert("end", '\n\nChecking for responses...')
+            #rc.markResponses(console, last_row_value)
+        
 
         console.insert("end", '\n\nDone')
     
