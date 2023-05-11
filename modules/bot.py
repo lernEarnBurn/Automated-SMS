@@ -56,11 +56,10 @@ def sendMessage(message, number):
     messageInput = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, ".form-control.mb-2")))
     messageInput.click()
 
-    messageInput.send_keys(message)
-    messageInput.send_keys(" ")
-    messageInput.click()
-    messageInput.send_keys(" ")
-    messageInput.click()
+    for character in message:
+        messageInput.send_keys(character)
+        time.sleep(0.00001)
+   
 
     sendBtnSelected = driver.find_element("xpath", "/html/body/main/div/div[1]/div[3]/div[4]/div/div[1]/div[2]/div[5]/button")
     sendBtn = wait.until(EC.element_to_be_clickable(sendBtnSelected))
