@@ -21,7 +21,7 @@ def leadSheet():
 
 
 def markSent(row):
-    SPREADSHEET_ID = 'SPREADSHEET_ID'
+    SPREADSHEET_ID = 'spreadsheet_id'
 
     current_date = str(datetime.datetime.now().strftime('%d/%m/%Y'))
 
@@ -35,7 +35,7 @@ def markSent(row):
 
 
 def fetchData(firstRow, lastRow):
-    SPREADSHEET_ID = 'SPREADSHEET_ID'
+    SPREADSHEET_ID = 'spreadsheet_id'
 
     result = leadSheet().values().get(spreadsheetId=SPREADSHEET_ID, range=f"'JU'!B{firstRow}:R{lastRow}").execute()
 
