@@ -14,13 +14,20 @@ import time
 
 options = Options()
 options.add_argument("--silent")
-#options.add_argument("--headless")
+
+
+options.add_argument("--headless")
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
+options.binary_location = '../driver/chromedriver.exe'
 
 args = ["hide_console", ]
 
 
-driver = webdriver.Chrome(executable_path='../driver/chromedriver.exe', options=options, service_args=args)
+#did not try yet
+options.add_argument("hide_console")
+
+
+driver = webdriver.Chrome(options=options)
 wait = WebDriverWait(driver, 20)
 
 
