@@ -26,8 +26,3 @@ A payed freelance contract for a money lending company.
 + Put the starting and ending row you wish to read in the marked inputs
 + Hit run and watch the magic happen
 
-
-
-# Automated-SMS
-Uses Google Sheets API to personalize text and grab numbers to Text Blast (uses a bot to automate interaction with escape sms platform). After messages sent it scrapes the responses and marks them with time stamps to allow for 
-data collection.
