@@ -1,4 +1,4 @@
-#Automated-SMS (python)
+# Automated-SMS (python)
 ## What it does
 + Uses Google Sheets API to persolize each text by grabbing name and company and other info from google sheet.
 + It then takes message and phone number and accesses the messaging platform via a headless browser and sends messages.
